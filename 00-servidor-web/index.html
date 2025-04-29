@@ -4,8 +4,114 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        /*CSS*/
+        /* Selector por ID */
+        #Titulo-muy-esppecial {
+            margin-right: 20px;
+            margin-left: 20px;
+            margin-top: 20px;   
+            margin-bottom: 20px;
+        }
+        /* Selector por nombre de etiqueta */
+        /*Se puede combinar los selectores por nombre de etiqueta y por ID separados por coma*/
+        #Titulo-muy-esppecial, h1, h2, h3, h4, h5, h6 {
+
+            margin: 20px;
+            padding: 20px;
+            padding-left: 3px;
+            padding-right: 3px;
+            padding-top: 3px;
+            padding-bottom: 3px;
+            border: blue 1px solid;
+            border-color:blue;
+            border-width: 10px;
+            border-style: dashed;
+        }
+
+        .lista-ordenada-mayusculas {
+            list-style-type: upper-alpha; /* upper-alpha, lower-alpha, upper-roman, lower-roman */
+        }
+        .lista-ordenada-romana {
+            list-style-type: upper-roman; /* upper-alpha, lower-alpha, upper-roman, lower-roman */
+        }
+
+        /* Selector por clase */
+        li > a { /* Selector de hijo directo */
+            background-color: red;
+            text-decoration: none; /* Elimina el subrayado */
+        }
+        /* Seudo clase */
+        ul > li:hover { /* Cambia el color del texto al pasar el mouse */
+            background-color: blue;
+        }
+        ul > a:first-child { /* Selecciona el primer hijo */
+            background-color: green;
+        }
+        ul > a:nth-child(4) { /* Selecciona el último hijo */
+            background-color: yellow;
+        }
+    </style>
 </head>
 <body>
-    <h1>Hello World</h1>
+    <h1 id = "Titulo-muy-esppecial" style="color: white;
+    background-color: black;">Hello World</h1>
+    <h2> My first heading</h2>
+    <a href="www.google.com" target="_blank"> Google </a>
+    <ul>
+        <li>
+            <a href="/index.html">Inicio</a>
+        </li>
+        <li>
+            <a href="/a-tablas-anclas.html">Tablas y Anclas</a>
+        </li>
+    </ul>
+    <ol class ="lista-ordenada-mayusculas">
+        <li> Lunes</li>
+            <ol class ="lista-ordenada-romana">
+                <li> Martes</li>    
+                <li> Miecoles</li>
+            </ol>
+        <li> Lunes</li>
+            <ol class ="lista-ordenada-romana">
+                <li> Martes</li>    
+                <li> Miecoles</li>
+            </ol>
+        <li> Martes</li>    
+        <li> Miercoles</li>
+   
+    </ol>
+
+    <p>links internos(#)</p>
+    <ul>
+        <li><a href="#parrafo1">Ir al parrafo 1</a></li>
+        <li><a href="#parrafo2">Ir al parrafo 2</a></li>
+    </ul>
+
+    <p id="parrafo1">parrafo 1</p>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <p id="parrafo2">parrafo 2</p>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <h2>Imagenes</h2>
+    <img src="https://thafd.bing.com/th/id/OIP.dbiEmN0CCtzTuY2hZp7UPwHaFj?rs=1&pid=ImgDetMain" alt="haibane renmmei" width="300" height="200"> <!-- Image -->
+    <table>
+        <tr><! -- Table Row -->
+            <th>Nombre</th> <!-- Table Header -->
+            <th>Apellido</th>
+            <th>Nota</th>
+        </tr>
+        <tr> <!-- Table Row -->
+            <td>Maicol</td> <!-- Table Data -->
+            <td>Nasimba</td>
+            <td>10</td>
+    </table>
 </body>
 </html>
