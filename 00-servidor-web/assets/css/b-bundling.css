@@ -1,0 +1,17 @@
+/* b-uno.css */
+h1  {
+    color: blue;
+}
+
+/* b-dos.css */
+h1  {
+    color: rgb(82, 235, 82);
+    border: 1px solid black;
+}
+
+/* b-tres.css */
+h1  {
+    color: black;
+    border: 1px solid brown;
+    background-color: rgb(229, 191, 22);
+}
