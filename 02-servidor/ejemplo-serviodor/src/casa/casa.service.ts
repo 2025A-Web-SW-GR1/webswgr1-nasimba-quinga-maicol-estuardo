@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Casa } from './casa.entity';
-import { Repository } from 'typeorm';
+import { FindManyOptions, Repository } from 'typeorm';
 
 @Injectable()
 export class CasaService {
@@ -10,8 +10,18 @@ export class CasaService {
     ){
 
     }
-    obtenerTodos(){
-        return this.photoRepository.find();
+    obtenerTodos(
+        options?: FindManyOptions<Casa> | undefined
+    ){
+        return this.photoRepository.find(options);
+    }
+
+    crearUno(nombre: string, valor:number, imagenUrl: string){
+        const nuevaInstancia = this.photoRepository.create();
+        nuevaInstancia.nombre = nombre;
+        nuevaInstancia.valor = valor;
+        nuevaInstancia.imagenURL = imagenUrl;
+        return this.photoRepository.save(nuevaInstancia);
     }
 }
  
