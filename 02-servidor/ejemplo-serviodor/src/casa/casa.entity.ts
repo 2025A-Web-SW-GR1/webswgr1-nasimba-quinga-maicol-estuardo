@@ -13,4 +13,11 @@ export class Casa {
 
   @Column()
   imagenURL: string;
+
+  // Nuevos campos para autenticación
+  @Column({ nullable: true })
+  username?: string;
+
+  @Column({ nullable: true })
+  password?: string;
 }

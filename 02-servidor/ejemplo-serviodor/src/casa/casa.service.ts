@@ -7,21 +7,32 @@ export class CasaService {
     constructor(
         @Inject('CASA_REPOSITORY')
         private photoRepository: Repository<Casa>,
-    ){
+    ) {}
 
-    }
     obtenerTodos(
         options?: FindManyOptions<Casa> | undefined
-    ){
+    ) {
         return this.photoRepository.find(options);
     }
 
-    crearUno(nombre: string, valor:number, imagenUrl: string){
+    crearUno(nombre: string, valor: number, imagenUrl: string) {
         const nuevaInstancia = this.photoRepository.create();
         nuevaInstancia.nombre = nombre;
         nuevaInstancia.valor = valor;
         nuevaInstancia.imagenURL = imagenUrl;
         return this.photoRepository.save(nuevaInstancia);
     }
+
+    // Nuevo método para buscar por username
+    async buscarUnoPorUsername(username: string) {
+        return await this.photoRepository.findOneOrFail({
+            where: { username }
+        });
+    }
+
+    async obtenerUnoPorId(id: number) {
+        return await this.photoRepository.findOneOrFail({
+            where: { id }
+        });
+    }
 }
- 
