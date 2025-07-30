@@ -20,4 +20,14 @@ export class Casa {
 
   @Column({ nullable: true })
   password?: string;
+
+  // Nuevos campos para el archivo
+  @Column({ nullable: true })
+  fileContentType?: string;
+
+  @Column({ nullable: true })
+  filename?: string;
+
+  @Column({ nullable: true })
+  fileID?: string;
 }

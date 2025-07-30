@@ -35,4 +35,22 @@ export class CasaService {
             where: { id }
         });
     }
+
+    async actualizarArchivoPorId(
+        valoresAActualizar: {
+            fileContentType: string;
+            filename: string;
+            fileID: string;
+        },
+        id: number
+    ) {
+        const recordExist = await this.photoRepository.findOneByOrFail({ id });
+        let registroActualizar = this.photoRepository.create();
+        registroActualizar = {
+            ...registroActualizar,
+            ...valoresAActualizar
+        }
+        registroActualizar.id = recordExist.id;
+        return this.photoRepository.save(registroActualizar);
+    }
 }
