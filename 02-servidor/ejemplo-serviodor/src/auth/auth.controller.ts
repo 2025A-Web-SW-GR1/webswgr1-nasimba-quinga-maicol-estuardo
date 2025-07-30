@@ -5,7 +5,8 @@ import {
   Body, 
   Session, 
   Res, 
-  Req 
+  Req,
+  Query // Agregar este import
 } from '@nestjs/common';
 import { CasaService } from '../casa/casa.service';
 
@@ -13,7 +14,18 @@ import { CasaService } from '../casa/casa.service';
 export class AuthController {
   constructor(private readonly casaService: CasaService) {}
 
-  // Método POST para login
+  // Vista de login (NUEVO)
+  @Get('login-vista')
+  async loginVista(
+    @Res() res: any,
+    @Query() query: { mensaje?: string },
+  ) {
+    res.render('login', {
+      mensaje: query.mensaje ?? ''
+    });
+  }
+
+  // Método POST para login (ACTUALIZADO)
   @Post('login')
   async login(
     @Body() login: { username: string; password: string; rest?: boolean; },
@@ -21,23 +33,20 @@ export class AuthController {
     @Res() res: any
   ) {
     try {
-      // Buscar al usuario (necesitarás implementar este método en CasaService)
       const respuesta = await this.casaService.buscarUnoPorUsername(login.username);
       
-      // Verificar password
       if (respuesta.password === login.password) {
         session.user = {
           ...respuesta
         };
         
-        // Si es REST, responder con JSON
         if (login.rest) {
           return {
             mensaje: 'Usuario logeado exitosamente'
           };
         }
         
-        // Redirigir a sesión
+        // Redirigir a sesión (renderizada)
         res.redirect('/auth/sesion');
       } else {
         res.redirect('/auth/login-vista?mensaje=Usuario y password no coinciden');
@@ -48,7 +57,7 @@ export class AuthController {
     }
   }
 
-  // Método GET para logout
+  // Método GET para logout (ACTUALIZADO)
   @Get('logout')
   logout(
     @Req() req: any,
@@ -59,10 +68,10 @@ export class AuthController {
         console.error('Error destroying session:', err);
       }
     });
-    res.redirect('/auth/login-vista');
+    res.redirect('/auth/login-vista'); // Cambiar a login-vista
   }
 
-  // Vista de sesión
+  // Vista de sesión (ACTUALIZADO)
   @Get('sesion')
   async sesion(
     @Res() res: any,
@@ -70,7 +79,6 @@ export class AuthController {
   ) {
     let casa: any = {};
     
-    // Si hay username continuamos
     if (session?.user?.username) {
       try {
         casa = await this.casaService.buscarUnoPorUsername(session.user.username);
@@ -79,10 +87,9 @@ export class AuthController {
       }
     }
     
-    // Por ahora devolvemos JSON, después puedes implementar renderizado
-    return {
-      sesionActiva: !!session?.user,
-      usuario: casa
-    };
+    // Renderizar la vista en lugar de devolver JSON
+    res.render('sesion', {
+      casa,
+    });
   }
 }

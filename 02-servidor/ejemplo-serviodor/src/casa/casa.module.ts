@@ -1,21 +1,16 @@
 import { Module } from '@nestjs/common';
-import { casaProviders } from './casa.repository';
 import { CasaController } from './casa.controller';
-import { DatabaseModule } from 'src/database/database.module';
 import { CasaService } from './casa.service';
+import { casaProviders } from './casa.repository';
+import { DatabaseModule } from '../database/database.module';
 
 @Module({
-  imports: [
-    DatabaseModule
-  ],
+  imports: [DatabaseModule],
   controllers: [CasaController],
   providers: [
     ...casaProviders,
     CasaService,
   ],
-  exports:[
-    ...casaProviders,
-    CasaService,
-  ]
+  exports: [CasaService],
 })
 export class CasaModule {}

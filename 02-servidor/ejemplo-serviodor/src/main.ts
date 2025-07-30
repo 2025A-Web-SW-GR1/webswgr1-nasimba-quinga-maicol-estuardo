@@ -2,11 +2,14 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as session from 'express-session';
 import * as sessionFileStore from 'session-file-store';
+import { join } from 'path';
+import { NestExpressApplication } from '@nestjs/platform-express'; // NUEVO
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  // Cambiar esta línea para usar NestExpressApplication
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
   
-  // Configuración de sesiones
+  // Configuración de sesiones (ya existente)
   const FileStore = sessionFileStore(session);
   app.use(
     session({
@@ -14,16 +17,21 @@ async function bootstrap() {
       resave: false,
       saveUninitialized: false,
       store: new FileStore({
-        path: './sessions', // Directorio para guardar los archivos de sesion
-        ttl: 3600, // tiempo de vida de las sesiones
+        path: './sessions',
+        ttl: 3600,
       }),
       cookie: {
-        maxAge: 3600000, // Cookie max age in milliseconds (1 hora)
+        maxAge: 3600000,
         secure: process.env.NODE_ENV === 'production',
         httpOnly: true,
       },
     }),
   );
+
+  // Configuración del motor de renderizado (CORREGIDO)
+  app.setViewEngine('ejs'); // Cambiar de app.set a app.setViewEngine
+  app.setBaseViewsDir(join(__dirname, '..', 'views'));
+  app.useStaticAssets(join(__dirname, '..', 'public'));
 
   await app.listen(3000);
 }

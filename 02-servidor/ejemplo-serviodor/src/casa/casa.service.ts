@@ -53,4 +53,14 @@ export class CasaService {
         registroActualizar.id = recordExist.id;
         return this.photoRepository.save(registroActualizar);
     }
+    async crearUsuarioPrueba() {
+        const nuevaCasa = this.photoRepository.create();
+        nuevaCasa.nombre = 'Casa de Prueba';
+        nuevaCasa.valor = 1000;
+        nuevaCasa.imagenURL = 'https://example.com/casa.jpg';
+        nuevaCasa.username = 'admin';
+        nuevaCasa.password = '1234';
+        return this.photoRepository.save(nuevaCasa);
+}
+
 }

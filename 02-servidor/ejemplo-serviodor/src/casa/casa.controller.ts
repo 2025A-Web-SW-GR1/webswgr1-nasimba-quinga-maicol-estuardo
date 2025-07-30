@@ -97,4 +97,10 @@ export class CasaController {
         // Hay otras formas para descargar como un buffer de datos tambien.
         file.pipe(response as any);
     }
+
+    // Temporal - agregar en casa.controller.ts para crear un usuario de prueba
+    @Post('crear-usuario-prueba')
+    crearUsuarioPrueba() {
+        return this.casaService.crearUsuarioPrueba(); // Usar el método del servicio
+    }
 }
